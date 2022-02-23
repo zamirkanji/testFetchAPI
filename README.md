@@ -1,2 +1,0 @@
-# testFetchAPI
-learning promises
