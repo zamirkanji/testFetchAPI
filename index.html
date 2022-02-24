@@ -4,15 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
     <title>test fetch api</title>
 </head>
 <body>
-    <img src="#" alt="">
+    <div class="search-container">
+        <form id="form">
+            <label for="query">Search GIF's</label> 
+            <input type="search" id="query" name="q" placeholder="Search..." value="">
+            <button id="search-btn" type="submit">Search</button>
+          </form>
+    </div>
+    <p id="no-img-txt" class="display-none"></p>
+    <img src="#" alt="" id="main-gif">
     <br>
     <button type="button" id="reload-btn" onclick="windowReload()">Reload</button>
+    <button type="button" id="rand-btn" onclick="fetchRand()">Random Image</button>
     <script>
         const img = document.querySelector('img');
 
+        const getSearchVal = (() => {
+            const searchBtn = document.querySelector('#search-btn');
+            const inputQ = document.querySelector('#query').value;
+            const form = document.querySelector('#form');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                console.log(e);
+                console.log(inputQ);
+            }, false);
+            return inputQ;
+        })()
+
+        // const fetchImg = () 
         fetch('https://api.giphy.com/v1/gifs/translate?api_key=q8vX1520MwZlItD8ScwqxlGH19cFSqp2&s=cats', {mode: 'cors'})
         .then((response) => {
             return response.json();
@@ -23,8 +47,14 @@
         })
         .catch(e => {
             console.log(e, 'ERROR/REJECTED');
+            const para = document.querySelector('#no-img-txt');
+            para.classList.remove('display-none');
+            para.textContent = "no image found";   
         });
 
+        const fetchRand = () =>{
+            // q8vX1520MwZlItD8ScwqxlGH19cFSqp2
+        } 
         const windowReload = () => location.reload();
     </script>
 </body>

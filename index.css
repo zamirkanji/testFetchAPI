@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+    padding: 10px;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    gap: 25px;
+}
+
+form {
+    align-self: center;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+}
+
+#main-gif {
+
+}
+
+button {
+    width: 25%;
+    align-self: center;
+}
