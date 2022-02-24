@@ -11,7 +11,7 @@
     <div class="search-container">
         <form id="form" role="search">
             <label for="query" class="display-none">Search GIF's</label> 
-            <input type="search" id="query" name="q" placeholder="Search..." value="" aria-label="Search for GIF">
+            <input type="search" id="query" name="q" placeholder="Search..." value="" aria-label="Search for GIF" autocomplete="">
             <button id="search-btn" type="submit">Search</button>
           </form>
     </div>
@@ -19,31 +19,50 @@
     <img src="#" alt="" id="main-gif">
     <br>
     <div class="btn-container">
-        <button type="button" id="reload-btn" onclick="windowReload()">Reload</button>
+        <button type="button" id="next-btn">Next</button>
         <button type="button" id="rand-btn" onclick="fetchRand()">Random Image</button>
     </div>
+    <!-- <script src="list.js"></script> -->
     <script>
+        const memeWords = [
+            'poo',
+            'dog',
+            'cat',
+            'fall',
+            'kermit',
+            'drake',
+            'phone',
+            'computer',
+            'storm',
+            'lizard',
+            'geiko',
+            'tape',
+            'bird'
+        ]
+
         const img = document.querySelector('img');
 
         const getSearchVal = (() => {
             const searchBtn = document.querySelector('#search-btn');
             const inputQ = document.querySelector('#query');
             const form = document.querySelector('#form');
-
+            
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
+                const v = inputQ.value;
                 console.log(e);
                 console.log(inputQ.value);
-                const v = inputQ.value;
                 return fetchImg(v);
             }, false);
 
-            return inputQ;
+            return;
         })()
 
-        const fetchImg = (v) => {
+        const fetchImg = (v, i = undefined) => {
             const para = document.querySelector('#no-img-txt');
-            fetch(`https://api.giphy.com/v1/gifs/translate?api_key=q8vX1520MwZlItD8ScwqxlGH19cFSqp2&s=${v}`, {mode: 'cors'})
+            let item;
+            v === null ? item = i : item = v;
+            fetch(`https://api.giphy.com/v1/gifs/translate?api_key=q8vX1520MwZlItD8ScwqxlGH19cFSqp2&s=${item}`, {mode: 'cors'})
             .then((response) => {
             return response.json();
             })
@@ -58,8 +77,11 @@
                 console.log(e, 'ERROR/REJECTED');
                 
                 para.classList.remove('display-none');
-                para.textContent = "no image found";   
+                para.textContent = "no image found";  
+                img.src = '11fjj7.jpeg'; 
             });
+
+
             // return response.data.images.original.url;
         }
 
@@ -78,10 +100,20 @@
         //     para.textContent = "no image found";   
         // });
 
+        const shuffle = arr => {
+            return arr.sort(() => Math.random() - 0.5);
+        }
+
         const fetchRand = () =>{
             // q8vX1520MwZlItD8ScwqxlGH19cFSqp2
+            let randItem = shuffle(memeWords);
+            randItem = randItem[0];
+            console.log(randItem);
+            return fetchImg(null, randItem);
         } 
         const windowReload = () => location.reload();
+
+        
     </script>
 </body>
 </html>
