@@ -18,8 +18,10 @@
     <p id="no-img-txt" class="display-none"></p>
     <img src="#" alt="" id="main-gif">
     <br>
-    <button type="button" id="reload-btn" onclick="windowReload()">Reload</button>
-    <button type="button" id="rand-btn" onclick="fetchRand()">Random Image</button>
+    <div class="btn-container">
+        <button type="button" id="reload-btn" onclick="windowReload()">Reload</button>
+        <button type="button" id="rand-btn" onclick="fetchRand()">Random Image</button>
+    </div>
     <script>
         const img = document.querySelector('img');
 
@@ -40,6 +42,7 @@
         })()
 
         const fetchImg = (v) => {
+            const para = document.querySelector('#no-img-txt');
             fetch(`https://api.giphy.com/v1/gifs/translate?api_key=q8vX1520MwZlItD8ScwqxlGH19cFSqp2&s=${v}`, {mode: 'cors'})
             .then((response) => {
             return response.json();
@@ -47,10 +50,13 @@
             .then((response) => {
                 console.log(response.data.images.original.url);
                 img.src = response.data.images.original.url;
+                if(response && !para.classList.contains('display-none')) {
+                    para.classList.add('display-none');
+                }
             })
             .catch(e => {
                 console.log(e, 'ERROR/REJECTED');
-                const para = document.querySelector('#no-img-txt');
+                
                 para.classList.remove('display-none');
                 para.textContent = "no image found";   
             });

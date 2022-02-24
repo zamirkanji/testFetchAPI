@@ -1,11 +1,16 @@
+html {
+    font: 12px system-ui;
+}
+
 body {
     margin: 0;
-    padding: 10px;
+    padding: 15px;
     background-color: black;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* align-items: center; */
+    align-items: space-evenly;
+    /* align-items: space-between; */
     gap: 25px;
 }
 
@@ -20,30 +25,29 @@ form {
 label {
     margin: 0;
     padding: 0;
-    /* width: 0;
-    height: 0; */
 }
 
 input {
     all: unset;
-    font: 16px system-ui;
-    color: #fff;
+    font: 12px system-ui;
     height: 100%;
     width: 50%;
     padding: 10px 10px;
-    background-color: rgb(48, 54, 66);
+    background-color: rgb(111, 125, 153);
     border-radius: 10px;
+    color: black;
 }
 
 ::placeholder {
     color: #fff;
     opacity: 0.7; 
+    color: black;
 }
 
 #search-btn {
     all: unset;
     cursor: pointer;
-    color: white;
+    color: #fff;
     background-color: rgb(48, 54, 66);
     padding: 10px 10px;
     margin: 0;
@@ -51,17 +55,37 @@ input {
 }
 
 #main-gif {
-
+    width: auto;
+    min-height: auto;
+    border: none;
+    margin: 0;
+    padding: 0;
 }
 
 button {
-    width: 25%;
-    height: 100%;
+    all: unset;
+    cursor: pointer;
+    color: #fff;
+    background-color: rgb(48, 54, 66);
+    padding: 10px 10px;
+    margin: 0;
+    border-radius: 10px;
+    width: 100px;
+    text-align: center;
+    
+}
+
+.btn-container {
     align-self: center;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    align-items: center;
 }
 
 p {
-    color: white;
+    color: #fff;
+    align-self: center;
 }
 
 .display-none {
