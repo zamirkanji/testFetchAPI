@@ -52,7 +52,10 @@
             'music',
             'pop',
             'tv',
-            'movie'
+            'movie',
+            'yes',
+            'no',
+            'maybe'
         ]
 
         const img = document.querySelector('img');
@@ -73,30 +76,52 @@
             return;
         })()
 
-        const fetchImg = (v, i = undefined) => {
+        // const fetchImg = (v, i = undefined) => {
+        //     const para = document.querySelector('#no-img-txt');
+        //     let item;
+        //     v === null ? item = i : item = v;     
+        //     fetch(`https://api.giphy.com/v1/gifs/translate?api_key=q8vX1520MwZlItD8ScwqxlGH19cFSqp2&s=${item}`, {mode: 'cors'})
+        //     .then((response) => {
+        //     return response.json();
+        //     })
+        //     .then((response) => {
+        //         console.log(response.data.images.original.url);
+        //         img.classList.remove('display-none');
+        //         img.src = response.data.images.original.url;
+        //         if(response && !para.classList.contains('display-none')) {
+        //             para.classList.add('display-none');
+        //         }
+        //     })
+        //     .catch(e => {
+        //         console.log(e, 'ERROR/REJECTED');
+        //         para.classList.remove('display-none');
+        //         para.textContent = "no image found";  
+        //         img.src = '11fjj7.jpeg'; 
+        //     });
+        //     // return response.data.images.original.url;
+        // }
+        
+        
+        async function fetchImg (v, i = undefined) {
             const para = document.querySelector('#no-img-txt');
             let item;
-            v === null ? item = i : item = v;     
-            fetch(`https://api.giphy.com/v1/gifs/translate?api_key=q8vX1520MwZlItD8ScwqxlGH19cFSqp2&s=${item}`, {mode: 'cors'})
-            .then((response) => {
-            return response.json();
-            })
-            .then((response) => {
-                console.log(response.data.images.original.url);
+            v === null ? item = i : item = v;    
+            try {
+                const response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=q8vX1520MwZlItD8ScwqxlGH19cFSqp2&s=${item}`, {mode: 'cors'})
+                const imgData = await response.json();
+                console.log(imgData.data.images.original.url, 'RESOLVED');
                 img.classList.remove('display-none');
-                img.src = response.data.images.original.url;
-                if(response && !para.classList.contains('display-none')) {
+                img.src = imgData.data.images.original.url;
+                if(imgData && !para.classList.contains('display-none')) {
                     para.classList.add('display-none');
                 }
-            })
-            .catch(e => {
-                console.log(e, 'ERROR/REJECTED');
+            } catch(err) {
+                console.log(err, 'ERROR/REJECTED');
                 para.classList.remove('display-none');
                 para.textContent = "no image found";  
                 img.src = '11fjj7.jpeg'; 
-            });
-            // return response.data.images.original.url;
-        }
+            };
+        };
 
         const shuffle = arr => {
             return arr.sort(() => Math.random() - 0.5);
